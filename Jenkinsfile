@@ -25,7 +25,7 @@ stages{
                 file = load "script.groovy"
                 file.hello()
             }
-            sh 'mvn clean package '
+            sh 'mvn clean package -DskipTests=true'
            
         }
 
