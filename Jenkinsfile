@@ -21,10 +21,7 @@ stages{
     stage('build')
     {
         steps {
-            script{
-                file = load "script.groovy"
-                file.hello()
-            }
+           
             sh 'mvn clean package -DskipTests=true'
            
         }
