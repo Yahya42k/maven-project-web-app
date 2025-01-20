@@ -21,7 +21,10 @@ stages{
     stage('build')
     {
         steps {
-           
+            script{
+                file = load "script.groovy"
+                file.hello()
+            }
             sh 'mvn clean package -DskipTests=true'
            
         }
@@ -80,7 +83,26 @@ stages{
         }
     }
 
-   
+    stage('deploy_prod')
+    {
+      when { expression {params.select_environment == 'prod'}
+        beforeAgent true}
+        agent { label 'prodServer' }
+        steps
+        {
+             timeout(time:5, unit:'DAYS'){
+                input message: 'Deployment approved?'
+             }
+            dir("/var/www/html")
+            {
+                unstash "maven-build"
+            }
+            sh """
+            cd /var/www/html/
+            jar -xvf webapp.war
+            """
+        }  
+    }
 
    
 
