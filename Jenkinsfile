@@ -69,6 +69,7 @@ stages{
     {
         when { expression {params.select_environment == 'dev'}
         beforeAgent true}
+      
         agent { label 'devServer' }
         steps
         {
