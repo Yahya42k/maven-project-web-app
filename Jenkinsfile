@@ -1,3 +1,59 @@
+pipeline{
+
+  agent {
+    label 'server1'
+  }
+
+
+
+  stages{
+    stage('Build Stage'){
+      steps{
+            sh 'mvn clean package'
+      }
+  
+    }
+
+  stage('Test'){
+
+    parallel{
+
+
+      stage('Test A'){
+        steps{
+          sh 'echo "This is Test A"'
+        }
+      }
+      stage('Test B'){
+        steps{
+          sh 'echo "This is Test B"'
+        }
+      }
+    }
+    post{
+      success{
+    sh 'echo The test has been successfull.'
+        
+      }
+    }
+  }
+
+  stage('Archieve Stage'){
+    steps{
+     archiveArtifacts artifacts: '**/target/*.war'
+    }
+    
+  }
+    
+  }
+
+  
+}
+
+
+
+
+/*
 pipeline
 {
 
@@ -111,3 +167,4 @@ stages{
 }
 
 }
+*/
