@@ -4,6 +4,10 @@ pipeline{
     label 'server1'
   }
 
+  tools{
+    maven 'mymaven'
+  }
+
 
 
   stages{
