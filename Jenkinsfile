@@ -8,7 +8,13 @@ pipeline{
     maven 'mymaven'
   }
 
+environment {
+  Name = "Yahya"
+}
 
+  parameters{
+    string defaultValue: 'Yahya', name:'Name'
+  }
 
   stages{
     stage('Build Stage'){
