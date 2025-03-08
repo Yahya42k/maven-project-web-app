@@ -14,12 +14,14 @@ environment {
 
   parameters{
     string defaultValue: 'Yahya', name:'Name'
+    choice choices: ['dev', 'prod'], name: 'Location'
   }
 
   stages{
     stage('Build Stage'){
       steps{
             sh 'mvn clean package'
+            sh 'echo This is build by $Name'
       }
   
     }
